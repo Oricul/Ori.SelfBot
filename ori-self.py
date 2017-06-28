@@ -20,20 +20,21 @@ bot = commands.Bot(command_prefix='~', description=description, self_bot=True)
 
 @bot.event
 async def on_command_error(ctx, error):
-    print('1: {0} ||| {1}'.format(ctx,error))
-    print("2: {0} ||| {1}".format(error.message,error.view))
-    if isinstance(error, commands.NoPrivateMessage):
-        await ctx.send(content='This command cannot be used in private messages.')
-    elif isinstance(error, commands.DisabledCommand):
-        await ctx.send(content='This command is disabled and cannot be used.')
-    elif isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(content="You are missing required arguments.")
-    elif isinstance(error, commands.CommandNotFound):
-        await ctx.send(content="Command not found")
-    elif isinstance(error, commands.CommandInvokeError):
-        print('In {0}\n{1}'.format(ctx,error.original))
-    else:
-        print('{0}'.format(error))
+    await ctx.send(content="{0}".format(ctx))
+    #print('1: {0} ||| {1}'.format(ctx,error))
+    #print("2: {0} ||| {1}".format(error.message,error.view))
+    #if isinstance(error, commands.NoPrivateMessage):
+    #    await ctx.send(content='This command cannot be used in private messages.')
+    #elif isinstance(error, commands.DisabledCommand):
+    #    await ctx.send(content='This command is disabled and cannot be used.')
+    #elif isinstance(error, commands.MissingRequiredArgument):
+    #    await ctx.send(content="You are missing required arguments.")
+    #elif isinstance(error, commands.CommandNotFound):
+    #    await ctx.send(content="Command not found")
+    #elif isinstance(error, commands.CommandInvokeError):
+    #    print('In {0}\n{1}'.format(ctx,error.original))
+    #else:
+    #    print('{0}'.format(error))
 
 
 @bot.event
