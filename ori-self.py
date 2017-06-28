@@ -20,6 +20,8 @@ bot = commands.Bot(command_prefix='~', description=description, self_bot=True)
 
 @bot.event
 async def on_command_error(error, ctx):
+    print("1: {0}".format(dir(error)))
+    print("2: {0}".format(dir(ctx)))
     if isinstance(error, commands.NoPrivateMessage):
         await bot.send_message(ctx.message.author, 'This command cannot be used in private messages.')
     elif isinstance(error, commands.DisabledCommand):
