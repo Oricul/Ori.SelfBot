@@ -19,6 +19,26 @@ description = "Ori's self-bot for Discord (API v{0}) written in Python3 (v{1})."
 bot = commands.Bot(command_prefix='~', description=description, self_bot=True)
 
 @bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.NoPrivateMessage):
+        await ctx.send(content='This command cannot be used in private messages.')
+    elif isinstance(error, commands.DisabledCommand):
+        await ctx.send(content='This command is disabled and cannot be used.')
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await bot.formatter.format_help_for(ctx, ctx.command, "You are missing required arguments.")
+    elif isinstance(error, commands.CommandNotFound):
+        await ctx.send(content="Command not found")
+    elif isinstance(error, commands.CommandInvokeError):
+        print('In {0}\n{1}'.format(ctx,error.original))
+    else:
+        print('{0}'.format(error.__traceback__))
+
+
+@bot.event
+async def on_message(message):
+    await bot.process_commands(message)
+
+@bot.event
 async def on_ready():
     onlineMSG = "* Logged in as '{0}' ({1}). *".format(bot.user.name,bot.user.id)
     dversionMSG = "Discord API v{0}".format(discord.__version__)
