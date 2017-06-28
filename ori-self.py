@@ -19,10 +19,8 @@ description = "Ori's self-bot for Discord (API v{0}) written in Python3 (v{1})."
 bot = commands.Bot(command_prefix='~', description=description, self_bot=True)
 
 @bot.event
-@commands.command(pass_context=True)
-async def on_command_error(rctx, ctx, error):
+async def on_command_error(ctx, error):
     print(dir(ctx.args))
-    print(rctx)
     await ctx.send(content="{0}".format(ctx))
     #print('1: {0} ||| {1}'.format(ctx,error))
     #print("2: {0} ||| {1}".format(error.message,error.view))
