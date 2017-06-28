@@ -31,7 +31,7 @@ async def on_command_error(ctx, error):
     elif isinstance(error, commands.CommandInvokeError):
         print('In {0}\n{1}'.format(ctx,error.original))
     else:
-        print('{0}'.format(error.__traceback__))
+        print('{0}'.format(error))
 
 
 @bot.event
