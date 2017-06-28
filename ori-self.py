@@ -20,6 +20,7 @@ bot = commands.Bot(command_prefix='~', description=description, self_bot=True)
 
 @bot.event
 async def on_command_error(ctx, error):
+    print(dir(ctx))
     await ctx.send(content="{0}".format(ctx))
     #print('1: {0} ||| {1}'.format(ctx,error))
     #print("2: {0} ||| {1}".format(error.message,error.view))
