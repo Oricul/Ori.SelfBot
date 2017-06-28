@@ -19,23 +19,15 @@ description = "Ori's self-bot for Discord (API v{0}) written in Python3 (v{1})."
 bot = commands.Bot(command_prefix='~', description=description, self_bot=True)
 
 @bot.event
-async def on_command_error(ctx, error):
-    print(dir(ctx.args))
-    await ctx.send(content="{0}".format(ctx))
-    #print('1: {0} ||| {1}'.format(ctx,error))
-    #print("2: {0} ||| {1}".format(error.message,error.view))
-    #if isinstance(error, commands.NoPrivateMessage):
-    #    await ctx.send(content='This command cannot be used in private messages.')
-    #elif isinstance(error, commands.DisabledCommand):
-    #    await ctx.send(content='This command is disabled and cannot be used.')
-    #elif isinstance(error, commands.MissingRequiredArgument):
-    #    await ctx.send(content="You are missing required arguments.")
-    #elif isinstance(error, commands.CommandNotFound):
-    #    await ctx.send(content="Command not found")
-    #elif isinstance(error, commands.CommandInvokeError):
-    #    print('In {0}\n{1}'.format(ctx,error.original))
-    #else:
-    #    print('{0}'.format(error))
+async def on_command_error(error, ctx):
+    if isinstance(error, commands.NoPrivateMessage):
+        await bot.send_message(ctx.message.author, 'This command cannot be used in private messages.')
+    elif isinstance(error, commands.DisabledCommand):
+        await bot.send_message(ctx.message.author, 'Sorry. This command is disabled and cannot be used.')
+    elif isinstance(error, commands.CommandInvokeError):
+        print('In {0.command.qualified_name}:'.format(ctx), file=sys.stderr)
+        traceback.print_tb(error.original.__traceback__)
+        print('{0.__class__.__name__}: {0}'.format(error.original), file=sys.stderr)
 
 
 @bot.event
