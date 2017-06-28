@@ -20,11 +20,10 @@ bot = commands.Bot(command_prefix='~', description=description, self_bot=True)
 
 @bot.event
 async def on_command_error(error, ctx):
-    print(discord.Object(id="{0}".format(ctx.message.channel.id)))
     if isinstance(error, commands.NoPrivateMessage):
-        await bot.send_message(ctx.message.channel.id, 'This command cannot be used in private messages.')
+        await bot.send_message(discord.Object(id="{0}".format(ctx.message.channel.id)), 'This command cannot be used in private messages.')
     elif isinstance(error, commands.DisabledCommand):
-        await bot.send_message(ctx.message.channel.id, 'Sorry. This command is disabled and cannot be used.')
+        await bot.send_message(discord.Object(id="{0}".format(ctx.message.channel.id)), 'Sorry. This command is disabled and cannot be used.')
     elif isinstance(error, commands.CommandInvokeError):
         print('In {0.command.qualified_name}:'.format(ctx), file=sys.stderr)
         traceback.print_tb(error.original.__traceback__)
