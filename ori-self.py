@@ -21,12 +21,13 @@ bot = commands.Bot(command_prefix='~', description=description, self_bot=True)
 @bot.event
 async def on_command_error(ctx, error):
     print('{0}\n{1}'.format(ctx,error))
+    print(dir(error))
     if isinstance(error, commands.NoPrivateMessage):
         await ctx.send(content='This command cannot be used in private messages.')
     elif isinstance(error, commands.DisabledCommand):
         await ctx.send(content='This command is disabled and cannot be used.')
     elif isinstance(error, commands.MissingRequiredArgument):
-        await bot.formatter.format_help_for(ctx, ctx.command, "You are missing required arguments.")
+        await ctx.send(content="You are missing required arguments.")
     elif isinstance(error, commands.CommandNotFound):
         await ctx.send(content="Command not found")
     elif isinstance(error, commands.CommandInvokeError):
