@@ -35,10 +35,6 @@ async def on_command_error(ctx, error):
 
 
 @bot.event
-async def on_message(message):
-    await bot.process_commands(message)
-
-@bot.event
 async def on_ready():
     onlineMSG = "* Logged in as '{0}' ({1}). *".format(bot.user.name,bot.user.id)
     dversionMSG = "Discord API v{0}".format(discord.__version__)
@@ -67,5 +63,8 @@ async def on_ready():
                 exc = '{}: {}'.format(type(e).__name__,e)
                 print('Failed to load extension: {}\n{}'.format(extension,exc))
 
+@bot.event
+async def on_message(message):
+    await bot.process_commands(message)
 
 bot.run(token,bot=False)
